@@ -7,13 +7,14 @@ export interface PilotDetails {
 }
 
 export interface PilotInfo {
-  name: any;
   firstName: string;
   lastName: string;
   nickName: string;
   experience: string;
   desired_budget: number;
+  name: string;  
 }
+
 
 export interface Championship {
   name: string;

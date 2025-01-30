@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Trophy, Target, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const Welcome: React.FC = () => {
   const router = useRouter();
-  
+
   return (
     <div
       className="relative flex items-center justify-center min-h-screen bg-black dark bg-[url('/assets/car-driver.png')] bg-no-repeat bg-center"

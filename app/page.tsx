@@ -26,6 +26,7 @@ const HomePage: React.FC = () => {
     nickName: "",
     experience: "",
     desired_budget: 0,
+    name: "",
   });
 
   const router = useRouter();
@@ -38,9 +39,16 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleFormSubmit = (formData: PilotInfo) => {
-    setPilotInfo(formData);
-    setCurrentStep(2);
+    // Asegurándonos de que 'name' se construya con los valores 'firstName' y 'lastName'
+    const updatedFormData = {
+      ...formData,
+      name: `${formData.firstName} ${formData.lastName}`, // Concatenando 'firstName' y 'lastName' para 'name'
+    };
+  
+    setPilotInfo(updatedFormData); // Guardamos los datos actualizados
+    setCurrentStep(2); // Avanzamos al siguiente paso
   };
+  
 
   const handleDetailsSubmit = (details: PilotDetails) => {
     setPilotDetails(details);
