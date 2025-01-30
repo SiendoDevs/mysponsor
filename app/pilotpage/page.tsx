@@ -44,6 +44,7 @@ import {
 
 const PilotPage: React.FC = () => {
   const [pilotInfo, setPilotInfo] = useState<PilotInfo | null>(null);
+
   const [pilotDetails, setPilotDetails] = useState<PilotDetails | null>(null);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [bestPhotos, setBestPhotos] = useState<string[] | null>(null); // Added state for best photos
@@ -94,22 +95,6 @@ const PilotPage: React.FC = () => {
   ) => {
     const files = event.target.files;
     if (files) {
-      const logos = Array.from(files).map((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const logoResult = reader.result as string;
-          setSponsorLogos((prevLogos) =>
-            prevLogos ? [...prevLogos, logoResult] : [logoResult]
-          );
-          localStorage.setItem(
-            "sponsorLogos",
-            JSON.stringify(
-              sponsorLogos ? [...sponsorLogos, logoResult] : [logoResult]
-            )
-          );
-        };
-        reader.readAsDataURL(file);
-      });
     }
   };
 
@@ -157,22 +142,6 @@ const PilotPage: React.FC = () => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const images = Array.from(files).map((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const imageResult = reader.result as string;
-          setBestPhotos((prevPhotos) =>
-            prevPhotos ? [...prevPhotos, imageResult] : [imageResult]
-          );
-          localStorage.setItem(
-            "bestPhotos",
-            JSON.stringify(
-              bestPhotos ? [...bestPhotos, imageResult] : [imageResult]
-            )
-          );
-        };
-        reader.readAsDataURL(file);
-      });
     }
   };
 
@@ -227,7 +196,6 @@ const PilotPage: React.FC = () => {
     setSocialLinksModalOpen(false);
   };
 
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 p-6 text-white">
       <div className="max-w-screen-xl mx-auto bg-black backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden mb-8 border border-gray-700">
@@ -240,7 +208,7 @@ const PilotPage: React.FC = () => {
                 className="object-cover"
               />
               <AvatarFallback className="bg-neutral-950 text-xl">
-                {pilotInfo.name.charAt(0)}
+                {pilotInfo && pilotInfo.name ? pilotInfo.name.charAt(0) : "A"}
               </AvatarFallback>
             </Avatar>
             <div className="flex-grow">
@@ -269,7 +237,7 @@ const PilotPage: React.FC = () => {
                     <div
                       key={index}
                       className="relative bg-white rounded-lg p-2 max-w-[80px] max-h-[40px] flex items-center justify-center"
-                    > 
+                    >
                       <Image
                         src={logo}
                         alt={`Sponsor Logo ${index + 1}`}
@@ -569,8 +537,7 @@ const PilotPage: React.FC = () => {
       />
 
       {/* Display average followers */}
-      <div className="mt-4">
-      </div>
+      <div className="mt-4"></div>
     </div>
   );
 };

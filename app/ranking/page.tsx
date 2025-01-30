@@ -3,7 +3,7 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Target, Users, ArrowUp, ArrowDown } from "lucide-react"; // Import the icons for the logo and slogan
+import { ArrowUp, ArrowDown } from "lucide-react"; // Import the icons for the logo and slogan
 
 interface Pilot {
   name: string;

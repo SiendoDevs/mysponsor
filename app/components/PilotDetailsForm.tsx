@@ -3,8 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface PilotDetails {
   birthDate: string;
@@ -27,7 +40,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
     age: initialData.age || 0,
     gender: initialData.gender || "",
     location: initialData.location || "",
-    birthDate: initialData.birthDate || new Date().toISOString().split('T')[0],
+    birthDate: initialData.birthDate || new Date().toISOString().split("T")[0],
     countryCode: initialData.countryCode || "",
   });
 
@@ -35,7 +48,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
     setDetails(initialData);
   }, [initialData]);
 
-  const handleChange = (name: keyof PilotDetails, value: any) => {
+  const handleChange = (name: keyof PilotDetails, value: string | number) => {
     setDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
@@ -44,12 +57,17 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!details.birthDate || !details.gender || !details.location || details.age <= 0) {
+    if (
+      !details.birthDate ||
+      !details.gender ||
+      !details.location ||
+      details.age <= 0
+    ) {
       alert("Por favor completa todos los campos.");
       return;
     }
     localStorage.setItem("pilotDetails", JSON.stringify(details));
-    onSubmit(details);
+    onSubmit(details); // onSubmit expects a PilotDetails object
   };
 
   const countries = [
@@ -75,7 +93,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   ];
 
   const handleCountryChange = (countryCode: string) => {
-    const country = countries.find(c => c.code === countryCode);
+    const country = countries.find((c) => c.code === countryCode);
     if (country) {
       handleChange("location", country.name);
       handleChange("countryCode", country.code);
@@ -101,15 +119,26 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
               <Label htmlFor="birthDate">Fecha de Nacimiento</Label>
               <div className="flex space-x-4">
                 <Select
-                  onValueChange={(value) => handleChange("birthDate", `${value}-${details.birthDate.split('-')[1]}-${details.birthDate.split('-')[2]}`)}
-                  value={details.birthDate.split('-')[0]} // Año
+                  onValueChange={(value) =>
+                    handleChange(
+                      "birthDate",
+                      `${value}-${details.birthDate.split("-")[1]}-${
+                        details.birthDate.split("-")[2]
+                      }`
+                    )
+                  }
+                  value={details.birthDate.split("-")[0]} // Año
                 >
                   <SelectTrigger className="dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     <SelectValue placeholder="Año" />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-gray-700">
                     {years.map((year) => (
-                      <SelectItem key={year} value={year.toString()} className="dark:text-white dark:focus:bg-gray-600">
+                      <SelectItem
+                        key={year}
+                        value={year.toString()}
+                        className="dark:text-white dark:focus:bg-gray-600"
+                      >
                         {year}
                       </SelectItem>
                     ))}
@@ -117,15 +146,26 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
                 </Select>
 
                 <Select
-                  onValueChange={(value) => handleChange("birthDate", `${details.birthDate.split('-')[0]}-${value}-${details.birthDate.split('-')[2]}`)}
-                  value={details.birthDate.split('-')[1]} // Mes
+                  onValueChange={(value) =>
+                    handleChange(
+                      "birthDate",
+                      `${details.birthDate.split("-")[0]}-${value}-${
+                        details.birthDate.split("-")[2]
+                      }`
+                    )
+                  }
+                  value={details.birthDate.split("-")[1]} // Mes
                 >
                   <SelectTrigger className="dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     <SelectValue placeholder="Mes" />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-gray-700">
                     {months.map((month) => (
-                      <SelectItem key={month} value={month.toString().padStart(2, '0')} className="dark:text-white dark:focus:bg-gray-600">
+                      <SelectItem
+                        key={month}
+                        value={month.toString().padStart(2, "0")}
+                        className="dark:text-white dark:focus:bg-gray-600"
+                      >
                         {month}
                       </SelectItem>
                     ))}
@@ -133,15 +173,26 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
                 </Select>
 
                 <Select
-                  onValueChange={(value) => handleChange("birthDate", `${details.birthDate.split('-')[0]}-${details.birthDate.split('-')[1]}-${value}`)}
-                  value={details.birthDate.split('-')[2]} // Día
+                  onValueChange={(value) =>
+                    handleChange(
+                      "birthDate",
+                      `${details.birthDate.split("-")[0]}-${
+                        details.birthDate.split("-")[1]
+                      }-${value}`
+                    )
+                  }
+                  value={details.birthDate.split("-")[2]} // Día
                 >
                   <SelectTrigger className="dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     <SelectValue placeholder="Día" />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-gray-700">
                     {days.map((day) => (
-                      <SelectItem key={day} value={day.toString().padStart(2, '0')} className="dark:text-white dark:focus:bg-gray-600">
+                      <SelectItem
+                        key={day}
+                        value={day.toString().padStart(2, "0")}
+                        className="dark:text-white dark:focus:bg-gray-600"
+                      >
                         {day}
                       </SelectItem>
                     ))}
@@ -160,8 +211,18 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
                   <SelectValue placeholder="Selecciona un género" />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-gray-700">
-                  <SelectItem value="Masculino" className="dark:text-white dark:focus:bg-gray-600">Masculino</SelectItem>
-                  <SelectItem value="Femenino" className="dark:text-white dark:focus:bg-gray-600">Femenino</SelectItem>
+                  <SelectItem
+                    value="Masculino"
+                    className="dark:text-white dark:focus:bg-gray-600"
+                  >
+                    Masculino
+                  </SelectItem>
+                  <SelectItem
+                    value="Femenino"
+                    className="dark:text-white dark:focus:bg-gray-600"
+                  >
+                    Femenino
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -177,7 +238,11 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
                 </SelectTrigger>
                 <SelectContent className="dark:bg-gray-700">
                   {countries.map((country) => (
-                    <SelectItem key={country.code} value={country.code} className="dark:text-white dark:focus:bg-gray-600">
+                    <SelectItem
+                      key={country.code}
+                      value={country.code}
+                      className="dark:text-white dark:focus:bg-gray-600"
+                    >
                       {country.name}
                     </SelectItem>
                   ))}
@@ -187,10 +252,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
           </CardContent>
 
           <CardFooter className="pt-4">
-            <Button 
-              type="submit"
-              className="w-full"
-            >
+            <Button type="submit" className="w-full">
               Continuar
             </Button>
           </CardFooter>

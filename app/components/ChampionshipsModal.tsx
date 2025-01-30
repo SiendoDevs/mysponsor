@@ -1,13 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+
+interface ChampionshipData {
+  name: string;
+  year: string;
+  category: string;
+  position: string;
+  points: string;
+  bestResult: string;
+}
 
 interface ChampionshipsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (championshipData: any) => void;
+  onConfirm: (championshipData: ChampionshipData) => void;
 }
 
 const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
