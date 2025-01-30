@@ -188,7 +188,6 @@ const PilotPage: React.FC = () => {
 
   // Handle adding social links
   const handleAddSocialLinks = () => {
-    setSocialLinks({ instagram: '', tiktok: '', youtube: '' });
     setSocialLinksModalOpen(false);
   };
   
@@ -539,11 +538,3 @@ const PilotPage: React.FC = () => {
 };
 
 export default PilotPage;
-
-function setSocialLinks(links: {
-  instagram: string;
-  tiktok: string;
-  youtube: string;
-}) {
-  throw new Error("Function not implemented.");
-}

@@ -40,7 +40,7 @@ const SocialLinksModal: React.FC<SocialLinksModalProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => open ? null : onClose()}>
       <DialogContent aria-describedby="social-links-modal-description">
         <DialogHeader>
           <DialogTitle>Agregar Redes Sociales</DialogTitle>
