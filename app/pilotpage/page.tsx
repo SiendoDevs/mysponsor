@@ -187,15 +187,11 @@ const PilotPage: React.FC = () => {
   };
 
   // Handle adding social links
-  const handleAddSocialLinks = (links: {
-    instagram: string;
-    tiktok: string;
-    youtube: string;
-  }) => {
-    setSocialLinks(links);
+  const handleAddSocialLinks = () => {
+    setSocialLinks({ instagram: '', tiktok: '', youtube: '' });
     setSocialLinksModalOpen(false);
   };
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 p-6 text-white">
       <div className="max-w-screen-xl mx-auto bg-black backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden mb-8 border border-gray-700">
