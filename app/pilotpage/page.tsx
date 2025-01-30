@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -226,10 +227,6 @@ const PilotPage: React.FC = () => {
     setSocialLinksModalOpen(false);
   };
 
-  // Calculate average followers
-  const calculateAverageFollowers = () => {
-    // Add your logic here
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 p-6 text-white">
@@ -273,7 +270,7 @@ const PilotPage: React.FC = () => {
                       key={index}
                       className="relative bg-white rounded-lg p-2 max-w-[80px] max-h-[40px] flex items-center justify-center"
                     > 
-                      <img
+                      <Image
                         src={logo}
                         alt={`Sponsor Logo ${index + 1}`}
                         className="max-w-full max-h-full object-contain"
@@ -511,7 +508,7 @@ const PilotPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
               {bestPhotos.map((photo, index) => (
                 <div key={index} className="relative">
-                  <img
+                  <Image
                     src={photo}
                     alt={`Foto ${index + 1}`}
                     className="w-full h-full object-cover aspect-square"
@@ -573,7 +570,6 @@ const PilotPage: React.FC = () => {
 
       {/* Display average followers */}
       <div className="mt-4">
-        {/* <h3 className="text-lg font-bold text-white">Promedio de Seguidores: {calculateAverageFollowers()}</h3> */}
       </div>
     </div>
   );
