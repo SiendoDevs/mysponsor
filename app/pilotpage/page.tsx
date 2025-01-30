@@ -272,7 +272,7 @@ const PilotPage: React.FC = () => {
                     <div
                       key={index}
                       className="relative bg-white rounded-lg p-2 max-w-[80px] max-h-[40px] flex items-center justify-center"
-                    >
+                    > 
                       <img
                         src={logo}
                         alt={`Sponsor Logo ${index + 1}`}
