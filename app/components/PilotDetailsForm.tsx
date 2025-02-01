@@ -59,20 +59,23 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Submitting details:", details); // Log para ver los detalles antes de enviar
-
+  
+    // Verificar que todos los campos estén completos
     if (
       !details.birthDate ||
       !details.gender ||
       !details.location ||
-      details.age <= 0
+      details.age <= 0 ||
+      !details.countryCode
     ) {
       alert("Por favor completa todos los campos.");
       return;
     }
-
+  
     localStorage.setItem("pilotDetails", JSON.stringify(details));
-    onSubmit(details); // onSubmit expects a PilotDetails object
+    onSubmit(details); // onSubmit espera un objeto de tipo PilotDetails
   };
+  
 
   const countries = [
     { name: "Argentina", code: "AR" },
