@@ -54,7 +54,6 @@ const PilotPage: React.FC = () => {
     const savedCover = localStorage.getItem("coverImage");
     const savedPhotos = localStorage.getItem("bestPhotos");
     const savedChampionships = localStorage.getItem("championships");
-    const savedSponsorLogos = localStorage.getItem("sponsorLogos");
 
     if (info) setPilotInfo(JSON.parse(info));
     if (details) setPilotDetails(JSON.parse(details));
@@ -62,7 +61,6 @@ const PilotPage: React.FC = () => {
     if (savedCover) setCoverImage(savedCover);
     if (savedPhotos) setBestPhotos(JSON.parse(savedPhotos));
     if (savedChampionships) setChampionships(JSON.parse(savedChampionships));
-    if (savedSponsorLogos) setSponsorLogos(JSON.parse(savedSponsorLogos));
   }, []);
 
   const calculateAge = (birthDate: string) => {
@@ -110,9 +108,7 @@ const PilotPage: React.FC = () => {
       </div>
 
       {/* Budget Card Section */}
-      <BudgetCard
-        desiredBudget={pilotInfo.desired_budget}
-      />
+      <BudgetCard desiredBudget={pilotInfo.desired_budget} />
 
       {/* Sección de historia del piloto */}
       <HistorySection
