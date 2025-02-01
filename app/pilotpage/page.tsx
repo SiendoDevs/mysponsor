@@ -203,7 +203,7 @@ const PilotPage: React.FC = () => {
       />
 
       {/* Pilot Footer */}
-      <PilotFooter contactInfo={""} socialLinks={{}} />
+      <PilotFooter contactInfo={""} />
     </div>
   );
 };

@@ -49,6 +49,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   }, [initialData]);
 
   const handleChange = (name: keyof PilotDetails, value: string | number) => {
+    console.log(`Changing ${name} to: ${value}`); // Log para ver qué estamos cambiando
     setDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
@@ -57,6 +58,8 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Submitting details:", details); // Log para ver los detalles antes de enviar
+
     if (
       !details.birthDate ||
       !details.gender ||
@@ -66,6 +69,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
       alert("Por favor completa todos los campos.");
       return;
     }
+
     localStorage.setItem("pilotDetails", JSON.stringify(details));
     onSubmit(details); // onSubmit expects a PilotDetails object
   };
@@ -95,6 +99,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   const handleCountryChange = (countryCode: string) => {
     const country = countries.find((c) => c.code === countryCode);
     if (country) {
+      console.log(`Country changed to: ${country.name}`); // Log para ver qué país se seleccionó
       handleChange("location", country.name);
       handleChange("countryCode", country.code);
     }

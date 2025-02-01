@@ -4,6 +4,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
+import InvestMotor from "./InvestMotor"; // Asegúrate de que el path sea correcto
 
 interface InvestmentSectionProps {
   pilotName: string;
@@ -20,11 +21,15 @@ const InvestmentSection: React.FC<InvestmentSectionProps> = ({ pilotName, desire
         Apoya a {pilotName} en su carrera deportiva con una inversión desde ${" "}
         {desiredBudget ? (desiredBudget / 10).toLocaleString() : "10,000"} pesos.
       </p>
-      <div className="flex flex-wrap justify-center gap-4">
+      {/* Incluir InvestMotor dentro de InvestmentSection */}
+      <InvestMotor />
+      <div className="flex flex-wrap justify-center gap-4 mt-6 mb-8">
         <Button variant="default" onClick={onInvest}>
           Invertir desde ${desiredBudget ? (desiredBudget / 10).toLocaleString() : "10,000"}
         </Button>
       </div>
+      
+      
     </Card>
   );
 };
