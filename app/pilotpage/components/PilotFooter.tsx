@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface PilotFooterProps {
   contactInfo: string;
@@ -15,9 +16,11 @@ const PilotFooter: React.FC<PilotFooterProps> = ({ contactInfo, socialLinks }) =
           <div className="flex justify-center space-x-6 mt-2">
             {Object.entries(socialLinks).map(([platform, url]) => (
               <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
-                <img
+                <Image
                   src={`/icons/${platform}.svg`}
                   alt={platform}
+                  width={24} // specify the width
+                  height={24} // specify the height
                   className="w-6 h-6"
                 />
               </a>

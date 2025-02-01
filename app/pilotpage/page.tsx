@@ -27,7 +27,6 @@ const PilotPage: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [coverImage, setCoverImage] = useState<string | null>(null);
   const [bestPhotos, setBestPhotos] = useState<string[]>([]);
-  const [sponsorLogos, setSponsorLogos] = useState<string[]>([]);
   const [championships, setChampionships] = useState<Championship[]>([]);
   const [pilotHistory, setPilotHistory] = useState<PilotHistory>({
     debutDate: "01/01/2020",
