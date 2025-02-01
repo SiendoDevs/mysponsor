@@ -57,21 +57,17 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Verificar si todos los campos están completos
     if (
       !details.birthDate ||
       !details.gender ||
       !details.location ||
-      details.age <= 0 ||
-      !details.countryCode
+      details.age <= 0
     ) {
       alert("Por favor completa todos los campos.");
       return;
     }
-
-    // Almacenar los detalles en el localStorage y enviar el formulario
     localStorage.setItem("pilotDetails", JSON.stringify(details));
-    onSubmit(details);
+    onSubmit(details); // onSubmit expects a PilotDetails object
   };
 
   const countries = [
@@ -180,7 +176,9 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
                   onValueChange={(value) =>
                     handleChange(
                       "birthDate",
-                      `${details.birthDate.split("-")[0]}-${details.birthDate.split("-")[1]}-${value}`
+                      `${details.birthDate.split("-")[0]}-${
+                        details.birthDate.split("-")[1]
+                      }-${value}`
                     )
                   }
                   value={details.birthDate.split("-")[2]} // Día
@@ -263,3 +261,5 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
     </form>
   );
 };
+
+export default PilotDetailsForm;
