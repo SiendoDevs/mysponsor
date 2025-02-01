@@ -13,6 +13,7 @@ interface PilotInfo {
   nickName: string;
   experience: string;
   desired_budget: number;
+  name: string; // Add this line
 }
 
 interface EvaluationFormProps {
@@ -47,7 +48,15 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ onFormSubmit, initialDa
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      onFormSubmit({ firstName, lastName, nickName, experience, desired_budget: Number(desired_budget.replace(/\,/g, "")) });
+      const formData = {
+        firstName,
+        lastName,
+        nickName,
+        experience,
+        desired_budget: Number(desired_budget.replace(/\,/g, "")),
+        name: `${firstName} ${lastName}`, // Construct the 'name' property
+      };
+      onFormSubmit(formData);
     }
   };
 

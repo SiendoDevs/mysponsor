@@ -25,16 +25,16 @@ import {
   Trash,
   Plus,
 } from "lucide-react";
-import InvestmentModal from "@/app/components/InvestmentModal";
-import ChampionshipsModal from "@/app/components/ChampionshipsModal";
-import HistoryModal from "@/app/components/HistoryModal";
-import SocialLinksModal from "@/app/components/AddSocial";
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import InvestmentModal from "@/app/components/InvestmentModal";
+import ChampionshipsModal from "@/app/components/ChampionshipsModal";
+import HistoryModal from "@/app/components/HistoryModal";
+import SocialLinksModal from "@/app/components/AddSocial";
 import {
   Championship,
   PilotHistory,
@@ -44,20 +44,19 @@ import {
 
 const PilotPage: React.FC = () => {
   const [pilotInfo, setPilotInfo] = useState<PilotInfo | null>(null);
-
   const [pilotDetails, setPilotDetails] = useState<PilotDetails | null>(null);
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [bestPhotos, setBestPhotos] = useState<string[] | null>(null); // Added state for best photos
+  const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [bestPhotos, setBestPhotos] = useState<string[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [championships, setChampionships] = useState<Championship[]>([]); // Estado para almacenar campeonatos
+  const [championships, setChampionships] = useState<Championship[]>([]);
   const [isChampionshipModalOpen, setChampionshipModalOpen] = useState(false);
-  const [editingChampionship, setEditingChampionship] =
-    useState<Championship | null>(null); // Estado para el campeonato en edición
-  const [isHistoryModalOpen, setHistoryModalOpen] = useState(false); // State for HistoryModal
-  const [isSocialLinksModalOpen, setSocialLinksModalOpen] = useState(false); // State for SocialLinksModal
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // Explicitly type the ref
+  const [editingChampionship, setEditingChampionship] = useState<Championship | null>(null);
+  const [isHistoryModalOpen, setHistoryModalOpen] = useState(false);
+  const [isSocialLinksModalOpen, setSocialLinksModalOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const coverInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Datos históricos del piloto
   const [pilotHistory, setPilotHistory] = useState<PilotHistory>({
     debutDate: "01/01/2020",
     championships: 0,
@@ -69,39 +68,36 @@ const PilotPage: React.FC = () => {
     polePositions: 0,
   });
 
-  useEffect(() => {
-    const info = localStorage.getItem("pilotInfo");
-    const details = localStorage.getItem("pilotDetails");
-    const savedImage = localStorage.getItem("profileImage");
-    const savedPhotos = localStorage.getItem("bestPhotos"); // Added to fetch best photos
-    const savedChampionships = localStorage.getItem("championships"); // Added to fetch championships
-    if (info) setPilotInfo(JSON.parse(info));
-    if (details) setPilotDetails(JSON.parse(details));
-    if (savedImage) setProfileImage(savedImage);
-    if (savedPhotos) setBestPhotos(JSON.parse(savedPhotos)); // Parse and set best photos
-    if (savedChampionships) setChampionships(JSON.parse(savedChampionships)); // Parse and set championships
-  }, []);
-
   const [sponsorLogos, setSponsorLogos] = useState<string[] | null>(null);
   const sponsorLogoInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    const info = localStorage.getItem("pilotInfo");
+    const details = localStorage.getItem("pilotDetails");
+    const savedImage = localStorage.getItem("profileImage");
+    const savedCover = localStorage.getItem("coverImage");
+    const savedPhotos = localStorage.getItem("bestPhotos");
+    const savedChampionships = localStorage.getItem("championships");
     const savedSponsorLogos = localStorage.getItem("sponsorLogos");
+
+    if (info) setPilotInfo(JSON.parse(info));
+    if (details) setPilotDetails(JSON.parse(details));
+    if (savedImage) setProfileImage(savedImage);
+    if (savedCover) setCoverImage(savedCover);
+    if (savedPhotos) setBestPhotos(JSON.parse(savedPhotos));
+    if (savedChampionships) setChampionships(JSON.parse(savedChampionships));
     if (savedSponsorLogos) setSponsorLogos(JSON.parse(savedSponsorLogos));
   }, []);
 
-  const handleSponsorLogoUpload = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSponsorLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
+      // Implementar lógica de carga
     }
   };
 
   const handleDeleteSponsorLogo = (index: number) => {
-    const updatedLogos = sponsorLogos
-      ? sponsorLogos.filter((_, i) => i !== index)
-      : [];
+    const updatedLogos = sponsorLogos ? sponsorLogos.filter((_, i) => i !== index) : [];
     setSponsorLogos(updatedLogos);
     localStorage.setItem("sponsorLogos", JSON.stringify(updatedLogos));
   };
@@ -112,29 +108,19 @@ const PilotPage: React.FC = () => {
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
 
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birth.getDate())
-    ) {
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
       age--;
     }
 
     return age;
   };
 
-  if (!pilotInfo || !pilotDetails) return <div>Cargando...</div>;
-
-  const age = calculateAge(pilotDetails.birthDate);
-
   const handleInvest = (amount: number) => {
     console.log("Inversión realizada:", amount);
-    // Aquí puedes manejar la lógica de inversión
   };
 
   const handleDeletePhoto = (index: number) => {
-    const updatedPhotos = bestPhotos
-      ? bestPhotos.filter((_, i) => i !== index)
-      : [];
+    const updatedPhotos = bestPhotos ? bestPhotos.filter((_, i) => i !== index) : [];
     setBestPhotos(updatedPhotos);
     localStorage.setItem("bestPhotos", JSON.stringify(updatedPhotos));
   };
@@ -142,7 +128,20 @@ const PilotPage: React.FC = () => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
+      // Implementar lógica de carga
     }
+  };
+
+  const handleCoverUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      // Implementar lógica de carga de cover
+    }
+  };
+
+  const handleCloseChampionshipModal = () => {
+    setChampionshipModalOpen(false); // Cierra el modal
+    setEditingChampionship(null); // Limpia el campeonato en edición (si existe)
   };
 
   const handleAddChampionship = () => {
@@ -150,23 +149,17 @@ const PilotPage: React.FC = () => {
     setChampionshipModalOpen(true);
   };
 
-  const handleCloseChampionshipModal = () => {
-    setChampionshipModalOpen(false);
-  };
-
   const handleConfirmChampionship = (championshipData: Championship) => {
     if (editingChampionship) {
-      setChampionships((prev) =>
-        prev.map((championship) =>
-          championship.name === editingChampionship.name
-            ? championshipData
-            : championship
+      setChampionships(prev =>
+        prev.map(championship =>
+          championship.name === editingChampionship.name ? championshipData : championship
         )
       );
     } else {
-      setChampionships((prev) => [...prev, championshipData]);
+      setChampionships(prev => [...prev, championshipData]);
     }
-    handleCloseChampionshipModal();
+    setChampionshipModalOpen(false);
   };
 
   const handleEditChampionship = (championship: Championship) => {
@@ -180,72 +173,122 @@ const PilotPage: React.FC = () => {
     localStorage.setItem("championships", JSON.stringify(updatedChampionships));
   };
 
-  // Handle adding historical data
   const handleAddHistoryData = (historyData: PilotHistory) => {
     setPilotHistory(historyData);
     setHistoryModalOpen(false);
   };
 
-  // Handle adding social links
   const handleAddSocialLinks = () => {
     setSocialLinksModalOpen(false);
   };
-  
+
+  if (!pilotInfo || !pilotDetails) return <div>Cargando...</div>;
+
+  const age = calculateAge(pilotDetails.birthDate);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 p-6 text-white">
-      <div className="max-w-screen-xl mx-auto bg-black backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden mb-8 border border-gray-700">
-        <div className="bg-gradient-to-r from-black to-neutral-950 p-8">
-          <div className="flex items-center gap-6">
-            <Avatar className="w-32 h-32 border-4 border-neutral-950">
-              <AvatarImage
-                src={profileImage || ""}
-                alt="Profile"
-                className="object-cover"
-              />
-              <AvatarFallback className="bg-neutral-950 text-xl">
-                {pilotInfo && pilotInfo.name ? pilotInfo.name.charAt(0) : "A"}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-grow">
-              <h1 className="text-3xl font-bold text-white mb-2 font-racing">
-                {pilotInfo.name}
-              </h1>
-              <div className="flex items-center gap-3 bg-black/30 py-2 rounded-full mb-2">
-                <p className="text-xl text-gray-200">{pilotDetails.location}</p>
-                {pilotDetails.countryCode && (
-                  <ReactCountryFlag
-                    countryCode={pilotDetails.countryCode}
-                    svg
-                    title={pilotDetails.countryCode}
-                    className="text-2xl"
+    <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 text-white">
+      {/* Cover Photo Section */}
+      <div className="relative">
+        <div className="h-[300px] w-full relative">
+          {coverImage ? (
+            <Image
+              src={coverImage}
+              alt="Cover"
+              fill
+              className="object-cover"
+            />
+          ) : (
+            <div className="h-full w-full bg-gradient-to-r from-neutral-900 to-neutral-800" />
+          )}
+          <Button 
+            variant="secondary" 
+            className="absolute bottom-4 right-4 bg-black/50 hover:bg-black/70"
+            onClick={() => coverInputRef.current?.click()}
+          >
+            <Camera className="w-4 h-4 mr-2" />
+            Cambiar portada
+          </Button>
+          <input
+            type="file"
+            ref={coverInputRef}
+            className="hidden"
+            onChange={handleCoverUpload}
+            accept="image/*"
+          />
+        </div>
+
+        {/* Profile Info Section */}
+        <div className="max-w-screen-xl mx-auto px-4">
+          <div className="relative -mt-[88px] pb-4">
+            <div className="flex flex-col md:flex-row items-end md:items-center gap-4">
+              <div className="relative">
+                <Avatar className="w-[176px] h-[176px] border-4 border-black rounded-full">
+                  <AvatarImage
+                    src={profileImage || ""}
+                    alt="Profile"
+                    className="object-cover"
                   />
-                )}
+                  <AvatarFallback className="bg-neutral-950 text-4xl">
+                    {pilotInfo.name ? pilotInfo.name.charAt(0) : "A"}
+                  </AvatarFallback>
+                </Avatar>
+                <Button
+                  variant="secondary"
+                  className="absolute bottom-2 right-2 rounded-full p-2"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Camera className="w-4 h-4" />
+                </Button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  onChange={handleImageUpload}
+                  accept="image/*"
+                />
               </div>
-              {/* Sponsor Logos Section */}
-              <div className="flex items-center gap-3">
+
+              <div className="flex-grow mb-4 md:mb-0">
+                <h1 className="text-4xl font-bold text-white mb-2 font-racing">
+                  {pilotInfo.name}
+                </h1>
+                <div className="flex items-center gap-3 bg-black/30 px-4 py-2 rounded-full">
+                  <p className="text-xl text-gray-200">{pilotDetails.location}</p>
+                  {pilotDetails.countryCode && (
+                    <ReactCountryFlag
+                      countryCode={pilotDetails.countryCode}
+                      svg
+                      title={pilotDetails.countryCode}
+                      className="text-2xl"
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 bg-black/30 p-4 rounded-xl">
                 {!sponsorLogos || sponsorLogos.length === 0 ? (
                   <p className="text-gray-400 text-sm">Agregar Sponsors</p>
                 ) : null}
 
-                {sponsorLogos &&
-                  sponsorLogos.map((logo, index) => (
-                    <div
-                      key={index}
-                      className="relative bg-white rounded-lg p-2 max-w-[80px] max-h-[40px] flex items-center justify-center"
+                {sponsorLogos?.map((logo, index) => (
+                  <div
+                    key={index}
+                    className="relative bg-white rounded-lg p-2 max-w-[80px] max-h-[40px] flex items-center justify-center"
+                  >
+                    <Image
+                      src={logo}
+                      alt={`Sponsor Logo ${index + 1}`}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                    <button
+                      onClick={() => handleDeleteSponsorLogo(index)}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
                     >
-                      <Image
-                        src={logo}
-                        alt={`Sponsor Logo ${index + 1}`}
-                        className="max-w-full max-h-full object-contain"
-                      />
-                      <button
-                        onClick={() => handleDeleteSponsorLogo(index)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -257,52 +300,54 @@ const PilotPage: React.FC = () => {
                 <input
                   type="file"
                   ref={sponsorLogoInputRef}
-                  style={{ display: "none" }}
+                  className="hidden"
                   onChange={handleSponsorLogoUpload}
-                  multiple
                   accept="image/*"
                 />
               </div>
             </div>
           </div>
-        </div>
-        <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-neutral-950 rounded-xl p-6 backdrop-blur flex items-center gap-4">
-            <Timer className="w-8 h-8 text-zinc-200" />
-            <div>
-              <p className="text-gray-400">Edad</p>
-              <p className="text-2xl font-bold">{age} años</p>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            <div className="bg-black/40 backdrop-blur rounded-xl p-6 flex items-center gap-4">
+              <Timer className="w-8 h-8 text-zinc-200" />
+              <div>
+                <p className="text-gray-400">Edad</p>
+                <p className="text-2xl font-bold">{age} años</p>
+              </div>
             </div>
-          </div>
-          <div className="bg-neutral-950 rounded-xl p-6 backdrop-blur flex items-center gap-4">
-            <Flag className="w-8 h-8 text-zinc-200" />
-            <div>
-              <p className="text-gray-400">Experiencia</p>
-              <p className="text-2xl font-bold">{pilotInfo.experience} año/s</p>
+            <div className="bg-black/40 backdrop-blur rounded-xl p-6 flex items-center gap-4">
+              <Flag className="w-8 h-8 text-zinc-200" />
+              <div>
+                <p className="text-gray-400">Experiencia</p>
+                <p className="text-2xl font-bold">{pilotInfo.experience} año/s</p>
+              </div>
             </div>
-          </div>
-          <div className="bg-neutral-950 rounded-xl p-6 backdrop-blur flex items-center gap-4">
-            <Star className="w-8 h-8 text-zinc-200" />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <p className="text-gray-400">MySponsor Social Rank</p>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Calculamos en base a tus seguidores en redes sociales</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Button
-              variant="default"
-              onClick={() => setSocialLinksModalOpen(true)}
-            >
-              Añadir redes sociales
-            </Button>
+            <div className="bg-black/40 backdrop-blur rounded-xl p-6 flex items-center gap-4">
+              <Star className="w-8 h-8 text-zinc-200" />
+              <div className="flex items-center gap-4">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p className="text-gray-400">MySponsor Social Rank</p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Calculamos en base a tus seguidores en redes sociales</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <Button
+                  variant="default"
+                  onClick={() => setSocialLinksModalOpen(true)}
+                >
+                  Añadir redes sociales
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       <Card className="max-w-screen-xl mx-auto bg-black backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden mb-8 border border-gray-700">
         <CardHeader className="border-b border-gray-700">
           <CardTitle className="text-2xl font-bold text-white flex items-center justify-between">

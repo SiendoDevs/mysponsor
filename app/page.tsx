@@ -39,16 +39,15 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleFormSubmit = (formData: PilotInfo) => {
-    // Asegurándonos de que 'name' se construya con los valores 'firstName' y 'lastName'
+    // Ensure 'name' is constructed from 'firstName' and 'lastName'
     const updatedFormData = {
       ...formData,
-      name: `${formData.firstName} ${formData.lastName}`, // Concatenando 'firstName' y 'lastName' para 'name'
+      name: `${formData.firstName} ${formData.lastName}`, // Concatenate 'firstName' and 'lastName' for 'name'
     };
-  
-    setPilotInfo(updatedFormData); // Guardamos los datos actualizados
-    setCurrentStep(2); // Avanzamos al siguiente paso
+
+    setPilotInfo(updatedFormData); // Save the updated data
+    setCurrentStep(2); // Move to the next step
   };
-  
 
   const handleDetailsSubmit = (details: PilotDetails) => {
     setPilotDetails(details);
