@@ -1,30 +1,40 @@
 "use client";
 
 import React from "react";
-import { CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import {
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { Trophy, Target, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 import { useRouter } from "next/navigation";
 
-const Welcome: React.FC = () => {
+interface WelcomeProps {
+  onStartPilotProcess: () => void;
+}
+
+const Welcome: React.FC<WelcomeProps> = ({ onStartPilotProcess }) => {
   const router = useRouter();
 
   return (
-    <div
-      className="relative flex items-center justify-center min-h-screen bg-black dark bg-[url('/assets/car-driver.png')] bg-no-repeat bg-center"
-    >
+    <div className="relative flex items-center justify-center min-h-screen bg-black dark">
+      {/* Imagen de fondo */}
+      <div className="absolute inset-0 bg-[url('/assets/car-driver.png')] bg-no-repeat bg-center bg-contain opacity-50"></div>
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/95 to-transparent mix-blend-multiply pointer-events-none z-0"></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl w-full mx-4 animate-fade-in-up">
+      <div className="relative z-10 max-w-4xl w-full mx-4 animate-fade-in-up mt-12">
         <CardHeader className="text-center space-y-4">
           <CardTitle className="text-5xl font-extrabold bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent font-racing pb-2">
             MySponsor
           </CardTitle>
           <CardDescription className="text-xl mx-auto font-normal text-muted-foreground pb-4">
-            La plataforma que conecta pilotos con patrocinadores de todo el mundo
+            La plataforma que conecta pilotos con patrocinadores de todo el
+            mundo
           </CardDescription>
         </CardHeader>
 
@@ -38,9 +48,12 @@ const Welcome: React.FC = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Trophy className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold text-primary">Perfil Profesional</h3>
+                <h3 className="text-xl font-semibold text-primary">
+                  Perfil Profesional
+                </h3>
                 <p className="text-muted-foreground">
-                  Destaca tus logros y experiencia en una página profesional diseñada para impresionar.
+                  Destaca tus logros y experiencia en una página profesional
+                  diseñada para impresionar.
                 </p>
               </div>
             </div>
@@ -53,9 +66,12 @@ const Welcome: React.FC = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Target className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold text-primary">Objetivos Claros</h3>
+                <h3 className="text-xl font-semibold text-primary">
+                  Objetivos Claros
+                </h3>
                 <p className="text-muted-foreground">
-                  Define tus metas y presupuesto para atraer patrocinadores alineados con tu visión.
+                  Define tus metas y presupuesto para atraer patrocinadores
+                  alineados con tu visión.
                 </p>
               </div>
             </div>
@@ -68,9 +84,12 @@ const Welcome: React.FC = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Users className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold text-primary">Networking</h3>
+                <h3 className="text-xl font-semibold text-primary">
+                  Networking
+                </h3>
                 <p className="text-muted-foreground">
-                  Conecta directamente con empresas interesadas en apoyar el deporte motor.
+                  Conecta directamente con empresas interesadas en apoyar el
+                  deporte motor.
                 </p>
               </div>
             </div>
@@ -78,15 +97,21 @@ const Welcome: React.FC = () => {
 
           {/* Buttons */}
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Button variant="default" className="flex items-center gap-2 text-md px-6 py-3">
+            <Button
+              variant="default"
+              className="flex items-center gap-2 text-md text-white px-6 py-3 bg-red-600 hover:bg-red-500"
+              onClick={onStartPilotProcess}
+            >
               <User className="w-5 h-5" /> Soy Piloto
             </Button>
-            <Button onClick={() => router.push('/ranking')} variant="outline" className="flex items-center gap-2 text-md px-6 py-3">
+            <Button
+              onClick={() => router.push("/ranking")}
+              variant="outline"
+              className="flex items-center gap-2 text-md px-6 py-3"
+            >
               Soy Patrocinador
             </Button>
           </div>
-
-
         </CardContent>
       </div>
     </div>

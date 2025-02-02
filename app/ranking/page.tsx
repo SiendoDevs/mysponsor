@@ -4,6 +4,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, ArrowDown } from "lucide-react"; // Import the icons for the logo and slogan
+import Navbar from "../components/Navbar";
 
 interface Pilot {
   name: string;
@@ -33,6 +34,7 @@ pilots.sort((a, b) => b.socialRanking - a.socialRanking);
 const RankingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black p-6 text-white">
+      <Navbar />
       <div className="flex items-center justify-center mb-8">
         <h1 className="text-3xl font-extrabold bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent font-racing pb-2">MySponsor</h1>
         <p className="text-lg italic text-muted-foreground ml-4">La plataforma que conecta pilotos con patrocinadores</p>

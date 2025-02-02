@@ -20,6 +20,7 @@ import HistoryModal from "@/app/components/HistoryModal";
 import SocialLinksModal from "@/app/components/AddSocial";
 import PilotFooter from "./components/PilotFooter";
 import BudgetCard from "./components/BudgetCard";
+import Navbar from "../components/Navbar";
 
 const PilotPage: React.FC = () => {
   const [pilotInfo, setPilotInfo] = useState<PilotInfo | null>(null);
@@ -81,6 +82,7 @@ const PilotPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-neutral-950 text-white">
+      <Navbar />
       {/* Sección de perfil (con portada) */}
       <ProfileSection
         name={pilotInfo.name}

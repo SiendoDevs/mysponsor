@@ -39,14 +39,13 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleFormSubmit = (formData: PilotInfo) => {
-    // Ensure 'name' is constructed from 'firstName' and 'lastName'
     const updatedFormData = {
       ...formData,
-      name: `${formData.firstName} ${formData.lastName}`, // Concatenate 'firstName' and 'lastName' for 'name'
+      name: `${formData.firstName} ${formData.lastName}`,
     };
 
-    setPilotInfo(updatedFormData); // Save the updated data
-    setCurrentStep(2); // Move to the next step
+    setPilotInfo(updatedFormData);
+    setCurrentStep(2);
   };
 
   const handleDetailsSubmit = (details: PilotDetails) => {
@@ -72,9 +71,13 @@ const HomePage: React.FC = () => {
     router.push('/pilotpage');
   };
 
+  const startPilotProcess = () => {
+    setCurrentStep(5);
+  };
+
   return (
     <div className="bg-black text-gray-300">
-      {currentStep === 0 && <Welcome />}
+      {currentStep === 0 && <Welcome onStartPilotProcess={startPilotProcess} />}
       {currentStep === 1 && (
         <EvaluationForm
           onFormSubmit={handleFormSubmit}
@@ -104,15 +107,6 @@ const HomePage: React.FC = () => {
             Crear Perfil de MySponsor
           </Button>
         </>
-      )}
-
-      {currentStep === 0 && (
-        <Button
-          onClick={() => setCurrentStep(5)}
-          className="fixed bottom-4 right-4"
-        >
-          Comenzar
-        </Button>
       )}
 
       {currentStep === 5 && (
