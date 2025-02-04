@@ -11,6 +11,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+
 import {
   Select,
   SelectContent,
@@ -19,18 +20,34 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface PilotDetails {
-  birthDate: string;
-  gender: string;
-  location: string;
-  countryCode: string;
-  age: number;
-}
+import { PilotDetails } from "@/interfaces/interfacePilot";
 
 interface PilotDetailsFormProps {
   onSubmit: (details: PilotDetails) => void;
   initialData: PilotDetails;
 }
+
+const countries = [
+  { name: "Argentina", code: "AR" },
+  { name: "Bolivia", code: "BO" },
+  { name: "Brasil", code: "BR" },
+  { name: "Chile", code: "CL" },
+  { name: "Colombia", code: "CO" },
+  { name: "Costa Rica", code: "CR" },
+  { name: "Cuba", code: "CU" },
+  { name: "Ecuador", code: "EC" },
+  { name: "El Salvador", code: "SV" },
+  { name: "Guatemala", code: "GT" },
+  { name: "Honduras", code: "HN" },
+  { name: "México", code: "MX" },
+  { name: "Nicaragua", code: "NI" },
+  { name: "Panamá", code: "PA" },
+  { name: "Paraguay", code: "PY" },
+  { name: "Perú", code: "PE" },
+  { name: "República Dominicana", code: "DO" },
+  { name: "Uruguay", code: "UY" },
+  { name: "Venezuela", code: "VE" },
+];
 
 const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   onSubmit,
@@ -49,16 +66,24 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
   }, [initialData]);
 
   const handleChange = (name: keyof PilotDetails, value: string | number) => {
-    console.log(`Changing ${name} to: ${value}`); // Log para ver qué estamos cambiando
-    setDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    setDetails((prevDetails) => {
+      const newDetails = { ...prevDetails, [name]: value };
+
+      if (name === "birthDate" && typeof value === "string") {
+        const birthYear = parseInt(value.split("-")[0]);
+        const currentYear = new Date().getFullYear();
+        const calculatedAge = currentYear - birthYear;
+
+        newDetails.age = calculatedAge;
+      }
+
+      return newDetails;
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting details:", details); // Log para ver los detalles antes de enviar
+    console.log("Submitting details:", details);
 
     // Verificar que todos los campos estén completos
     if (
@@ -76,32 +101,12 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
     onSubmit(details); // onSubmit espera un objeto de tipo PilotDetails
   };
 
-  const countries = [
-    { name: "Argentina", code: "AR" },
-    { name: "Bolivia", code: "BO" },
-    { name: "Brasil", code: "BR" },
-    { name: "Chile", code: "CL" },
-    { name: "Colombia", code: "CO" },
-    { name: "Costa Rica", code: "CR" },
-    { name: "Cuba", code: "CU" },
-    { name: "Ecuador", code: "EC" },
-    { name: "El Salvador", code: "SV" },
-    { name: "Guatemala", code: "GT" },
-    { name: "Honduras", code: "HN" },
-    { name: "México", code: "MX" },
-    { name: "Nicaragua", code: "NI" },
-    { name: "Panamá", code: "PA" },
-    { name: "Paraguay", code: "PY" },
-    { name: "Perú", code: "PE" },
-    { name: "República Dominicana", code: "DO" },
-    { name: "Uruguay", code: "UY" },
-    { name: "Venezuela", code: "VE" },
-  ];
-
   const handleCountryChange = (countryCode: string) => {
+    console.log("Selected country code:", countryCode);
     const selectedCountry = countries.find(
       (country) => country.code === countryCode
     );
+
     if (selectedCountry) {
       handleChange("location", selectedCountry.name);
       handleChange("countryCode", selectedCountry.code);

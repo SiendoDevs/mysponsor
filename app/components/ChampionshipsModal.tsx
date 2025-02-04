@@ -1,22 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-interface ChampionshipData {
-  name: string;
-  year: string;
-  category: string;
-  position: string;
-  points: string;
-  bestResult: string;
-}
+import { Championship } from "@/interfaces/interfacePilot";
 
 interface ChampionshipsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (championshipData: ChampionshipData) => void;
+  onConfirm: (championshipData: Championship) => void;
 }
 
 const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
@@ -24,12 +21,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const [championshipName, setChampionshipName] = useState('');
-  const [championshipYear, setChampionshipYear] = useState('');
-  const [championshipCategory, setChampionshipCategory] = useState('');
-  const [championshipPosition, setChampionshipPosition] = useState('');
-  const [championshipPoints, setChampionshipPoints] = useState('');
-  const [championshipBestResult, setChampionshipBestResult] = useState('');
+  const [championshipName, setChampionshipName] = useState("");
+  const [championshipYear, setChampionshipYear] = useState("");
+  const [championshipCategory, setChampionshipCategory] = useState("");
+  const [championshipPosition, setChampionshipPosition] = useState("");
+  const [championshipPoints, setChampionshipPoints] = useState("");
+  const [championshipBestResult, setChampionshipBestResult] = useState("");
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -39,7 +36,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </DialogHeader>
 
         <div className="mb-4">
-          <label htmlFor="championshipName" className="block text-sm font-medium text-gray-700">Nombre del Campeonato</label>
+          <label
+            htmlFor="championshipName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Nombre del Campeonato
+          </label>
           <input
             type="text"
             name="championshipName"
@@ -51,7 +53,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="championshipYear" className="block text-sm font-medium text-gray-700">Año del Campeonato</label>
+          <label
+            htmlFor="championshipYear"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Año del Campeonato
+          </label>
           <input
             type="number"
             name="championshipYear"
@@ -63,7 +70,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="championshipCategory" className="block text-sm font-medium text-gray-700">Categoría del Campeonato</label>
+          <label
+            htmlFor="championshipCategory"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Categoría del Campeonato
+          </label>
           <input
             type="text"
             name="championshipCategory"
@@ -75,7 +87,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="championshipPosition" className="block text-sm font-medium text-gray-700">Posición en el Campeonato</label>
+          <label
+            htmlFor="championshipPosition"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Posición en el Campeonato
+          </label>
           <input
             type="text"
             name="championshipPosition"
@@ -87,7 +104,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="championshipPoints" className="block text-sm font-medium text-gray-700">Puntos Obtenidos</label>
+          <label
+            htmlFor="championshipPoints"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Puntos Obtenidos
+          </label>
           <input
             type="text"
             name="championshipPoints"
@@ -99,7 +121,12 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="championshipBestResult" className="block text-sm font-medium text-gray-700">Mejor Resultado</label>
+          <label
+            htmlFor="championshipBestResult"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Mejor Resultado
+          </label>
           <input
             type="text"
             name="championshipBestResult"
@@ -114,14 +141,18 @@ const ChampionshipsModal: React.FC<ChampionshipsModalProps> = ({
           <Button variant="outline" onClick={onClose} className="mr-2">
             Cerrar
           </Button>
-          <Button onClick={() => onConfirm({ 
-            name: championshipName, 
-            year: championshipYear, 
-            category: championshipCategory, 
-            position: championshipPosition, 
-            points: championshipPoints, 
-            bestResult: championshipBestResult 
-          })}>
+          <Button
+            onClick={() =>
+              onConfirm({
+                name: championshipName,
+                year: championshipYear,
+                category: championshipCategory,
+                position: championshipPosition,
+                points: championshipPoints,
+                bestResult: championshipBestResult,
+              })
+            }
+          >
             Confirmar
           </Button>
         </div>
