@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Trophy, Edit, Trash } from "lucide-react";
-import { Championship } from "@/app/types";
+import { Championship } from "@/interfaces/interfacePilot";
 
 interface ChampionshipsSectionProps {
   championships: Championship[];

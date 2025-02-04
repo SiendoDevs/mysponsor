@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { PilotHistory } from "@/app/types";
+import { PilotHistory } from "@/interfaces/interfacePilot";
 
 interface HistorySectionProps {
   pilotHistory: PilotHistory;
