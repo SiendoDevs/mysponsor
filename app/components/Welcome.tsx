@@ -10,7 +10,7 @@ import {
 import { Trophy, Target, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import Navbar from "./Navbar";
+
 
 interface WelcomeProps {
   onStartPilotProcess: () => void;
