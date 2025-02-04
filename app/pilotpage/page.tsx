@@ -7,7 +7,7 @@ import {
   PilotHistory,
   PilotInfo,
   PilotDetails,
-} from "@/app/types";
+} from "@/interfaces/interfacePilot";
 import ProfileSection from "./components/ProfileSection";
 import StatsCards from "./components/StatsCards";
 import HistorySection from "./components/HistorySection";
