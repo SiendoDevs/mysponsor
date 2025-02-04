@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { PilotHistory } from "@/app/types"; // Import the PilotHistory type
+import { PilotHistory } from "@/interfaces/interfacePilot"; // Import the PilotHistory type
 
 interface HistoryModalProps {
   isOpen: boolean;
