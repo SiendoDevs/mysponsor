@@ -9,7 +9,7 @@ import PilotDetailsForm from "./components/PilotDetailsForm";
 import BudgetDistribution from "./components/BudgetDistribution";
 import PilotPreview from "./components/PilotPreview";
 import { Button } from "@/components/ui/button";
-import { PilotDetails, PilotInfo } from "@/app/types";
+import { PilotDetails, PilotInfo } from "@/interfaces/interfacePilot";
 
 const HomePage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
