@@ -11,6 +11,18 @@ interface HistorySectionProps {
   onAddHistory: () => void;
 }
 
+// Mapeo de claves a nombres personalizados
+const historyLabels = {
+  debutDate: "Debut",
+  championships: "Campeonatos",
+  races: "Carreras",
+  lapRecords: "Récords de Vuelta",
+  podiums: "Podios",
+  finalWins: "Victorias Finales",
+  seriesWins: "Victorias en Series",
+  polePositions: "Pole Positions",
+};
+
 const HistorySection: React.FC<HistorySectionProps> = ({ pilotHistory, onAddHistory }) => {
   return (
     <Card className="max-w-screen-xl mx-auto bg-black backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden mb-8 border border-gray-700">
@@ -27,7 +39,9 @@ const HistorySection: React.FC<HistorySectionProps> = ({ pilotHistory, onAddHist
         <div className="grid grid-cols-4 gap-4">
           {Object.entries(pilotHistory).map(([key, value]) => (
             <div key={key} className="bg-neutral-950 p-4 rounded-lg">
-              <p className="text-lg text-white">{key.replace(/([A-Z])/g, " $1")}</p>
+              <p className="text-lg text-white">
+                {historyLabels[key as keyof typeof historyLabels] || key.replace(/([A-Z])/g, " $1")}
+              </p>
               <p className="text-2xl font-bold text-white">{value}</p>
             </div>
           ))}

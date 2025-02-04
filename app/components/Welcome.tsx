@@ -10,6 +10,7 @@ import {
 import { Trophy, Target, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Navbar from "./Navbar";
 
 interface WelcomeProps {
   onStartPilotProcess: () => void;
@@ -20,6 +21,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onStartPilotProcess }) => {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-black dark">
+      
       {/* Imagen de fondo */}
       <div className="absolute inset-0 bg-[url('/assets/car-driver.png')] bg-no-repeat bg-center bg-contain opacity-50"></div>
 

@@ -118,8 +118,8 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
       <div className="flex items-center justify-center min-h-screen bg-black dark">
         <Card className="max-w-lg w-full">
           <CardHeader className="text-center space-y-4">
-            <CardTitle>Detalles del Piloto</CardTitle>
-            <CardDescription>Ingresa tus datos personales.</CardDescription>
+            <CardTitle>Datos Personales</CardTitle>
+            <CardDescription>Ingresa fecha de nacimiento, sexo y país</CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
@@ -210,7 +210,7 @@ const PilotDetailsForm: React.FC<PilotDetailsFormProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="gender">Género</Label>
+              <Label htmlFor="gender">Sexo</Label>
               <Select
                 onValueChange={(value) => handleChange("gender", value)}
                 value={details.gender}
